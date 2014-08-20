@@ -3,7 +3,6 @@ package br.com.agenda.suittest;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import br.com.agenda.dao.DBConnection;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
