@@ -4,5 +4,10 @@
     <string name="app_name">WifeController</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="data">Data</string>
+     <string name="gerar">Gerar</string>
+    
+    
+    
 
 </resources>
