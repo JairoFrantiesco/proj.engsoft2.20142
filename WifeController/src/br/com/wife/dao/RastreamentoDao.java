@@ -96,4 +96,63 @@ public class RastreamentoDao extends DaoGenerico {
 	
 	}
 
+	public List<String> retornaDatas() {
+		List<String> datas = new ArrayList<String>();
+
+		dbOpen();
+
+		Cursor c = db.rawQuery("SELECT DATA FROM " + TABELA + " ORDER BY DATA desc", null);
+
+		if (c.moveToFirst()) {
+
+			do {
+				Rastreamento rast = new Rastreamento();
+
+				String data = (c.getString(c.getColumnIndex("DATA")));
+				
+				if(!datas.contains(data)){
+					datas.add(data);
+				}
+
+			} while (c.moveToNext());
+
+		}
+
+		c.close();
+		dbClose();
+		
+		return datas;
+	}
+
+	// retorna posição atraves da data
+	public List<String> retornaCoordenadas(String data) {
+		List<String> coordenadas = new ArrayList<String>();
+
+		dbOpen();
+
+		Cursor c = db.rawQuery("SELECT GPSLAT, GPSLONG FROM " + TABELA
+				+ " WHERE DATA = \"" + data + "\"" + " ORDER BY HORA desc", null);
+
+		if (c.moveToFirst()) {
+
+			do {
+				Rastreamento rast = new Rastreamento();
+
+				String lat = (c.getString(c.getColumnIndex("GPSLAT")));
+				String lon = (c.getString(c.getColumnIndex("GPSLONG")));
+				
+				String coord = ("LAT: " + lat + " ; LONG: " + lon);
+				coordenadas.add(coord);
+
+			} while (c.moveToNext());
+
+		}
+
+		c.close();
+		dbClose();
+
+		return coordenadas;
+
+	}
+
 }

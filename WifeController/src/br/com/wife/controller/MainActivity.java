@@ -2,7 +2,9 @@ package br.com.wife.controller;
 
 import br.com.wife.dao.DispositivoDao;
 import br.com.wife.model.Dispositivo;
+import br.com.wife.service.ServiceCapture;
 import br.com.wife.util.MontaEstruturaBanco;
+
 
 //import com.example.menu.Cadastro;
 import com.example.wifecontroller.R;
