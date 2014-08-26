@@ -32,7 +32,8 @@ public class MainActivity extends Activity {
 		Log.d("NOME DISP", disp.getNmDispositivo());
 		Log.d("INTERVALO DISP", disp.getIntervalo().toString());
 		
-		
+		new ServiceCapture(this);
+		//para testar no simulador após aberto, botão DDMS, aba "Emulator Control".
 		
 		//Tela de cadastro
 		startActivity(new Intent(this, CadastroActivity.class));
