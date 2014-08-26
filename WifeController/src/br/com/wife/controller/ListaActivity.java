@@ -3,8 +3,8 @@ package br.com.wife.controller;
 import java.util.Arrays;
 import java.util.List;
 
-import br.com.wife.dao.DadosDao;
-import br.com.wife.model.DadosRastreamento;
+import br.com.wife.dao.RastreamentoDao;
+import br.com.wife.model.Rastreamento;
 
 import com.example.wifecontroller.R;
 

@@ -20,7 +20,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="br.com.wife.controller.ListaActivity"
+            android:name="br.com.wife.controller.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +28,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+         <!-- Lista com as posições -->
+        <activity android:name="br.com.wife.controller.ListaActivity" android:screenOrientation="portrait" />
+        
+        <!-- Cadastro do dispositivo -->
+        <activity android:name="br.com.wife.controller.CadastroActivity" android:screenOrientation="portrait" />
+        
     </application>
 
 </manifest>

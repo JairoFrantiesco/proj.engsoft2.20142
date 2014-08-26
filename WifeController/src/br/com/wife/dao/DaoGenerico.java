@@ -14,7 +14,7 @@ public class DaoGenerico extends SQLiteOpenHelper {
 	private static int VERSION = 6;
 	private static String DB_NAME = "wife.db";
 	
-	private SQLiteDatabase db;
+	public SQLiteDatabase db;
 
 	public DaoGenerico(Context context) {
 		super(context, DB_NAME, null, VERSION);
@@ -32,6 +32,12 @@ public class DaoGenerico extends SQLiteOpenHelper {
 
 		
 	}
+	
+	// Abre o banco
+	public void dbOpen(){ this.db = this.getWritableDatabase(); }
+						
+	// Fecha o banco
+	public void dbClose(){ this.db.close(); }
 
 	
 }
