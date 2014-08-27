@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.util.Log;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 
 public class MainActivity extends Activity {
 
@@ -30,15 +31,16 @@ public class MainActivity extends Activity {
 		DispositivoDao daoDisp = new DispositivoDao(this);
 		Dispositivo disp = daoDisp.getDispositivo();
 		
-		Log.d("ID DISP", disp.getId().toString());
-		Log.d("NOME DISP", disp.getNmDispositivo());
-		Log.d("INTERVALO DISP", disp.getIntervalo().toString());
-		
 		new ServiceCapture(this);
-		//para testar no simulador após aberto, botão DDMS, aba "Emulator Control".
-		
-		//Tela de cadastro
+
+	}
+	
+	public void cadastraDispositivo(View v){
 		startActivity(new Intent(this, CadastroActivity.class));
+	}
+	
+	public void listaPosicoes(View v){
+		startActivity(new Intent(this, ListaActivity.class));
 	}
 
 	@Override

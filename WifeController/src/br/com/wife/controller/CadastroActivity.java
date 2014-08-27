@@ -1,6 +1,7 @@
 package br.com.wife.controller;
 
-import br.com.wife.model.DadosUsuario;
+import br.com.wife.dao.DispositivoDao;
+import br.com.wife.model.Dispositivo;
 
 
 import com.example.wifecontroller.R;
@@ -26,16 +27,21 @@ public class CadastroActivity extends Activity{
 	public Spinner tempo;
 	public Button btCadastra;
 	
-	DadosUsuario dUsuario = new DadosUsuario();
+	Dispositivo disp;
+	DispositivoDao daoDisp = new DispositivoDao(this);
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cadastro);
+		
+		disp = daoDisp.getDispositivo();
 	
 		edNome = (EditText) findViewById(R.id.edNome);
 		tempo = (Spinner) findViewById(R.id.tempo);
 		btCadastra = (Button) findViewById(R.id.btCadastra);
+		
+		edNome.setText(disp.getNmDispositivo().toString());
 
 		//Definição do evento do clique do botao cadastrar
 		btCadastra.setOnClickListener(new OnClickListener() {
@@ -43,13 +49,16 @@ public class CadastroActivity extends Activity{
 			public void onClick(View view) {
 				
 				//Salva as informações de cadastro
-				dUsuario.setNome(edNome.getText().toString());
-				dUsuario.setTempoAtualizacao((Integer) tempo.getSelectedItem());
+				disp.setId(1);
+				disp.setNmDispositivo(edNome.getText().toString());
+				disp.setIntervalo((Integer) tempo.getSelectedItem());
+				
+				daoDisp.atualizar(disp);
 				
 				//Exibe uma mensagem de sucesso
-				Toast.makeText(getApplicationContext(), "Cadastro conluído!", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "Dados atualizados com sucesso!", Toast.LENGTH_LONG).show();
 				
-				//Chama a tela de visualização
+				finish();
 
 			}
 		});

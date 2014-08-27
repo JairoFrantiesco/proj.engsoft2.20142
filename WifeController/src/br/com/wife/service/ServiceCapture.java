@@ -1,6 +1,9 @@
 package br.com.wife.service;
 
+import br.com.wife.dao.DispositivoDao;
+import br.com.wife.model.Dispositivo;
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -13,9 +16,17 @@ import android.widget.Toast;
          
             private LocationManager locationManager;
             private Activity myActivity;
+            
+            Dispositivo disp;
+            DispositivoDao daoDisp;
              
             public ServiceCapture(Activity myActivity) {
                 this.myActivity = myActivity;
+                
+                daoDisp = new DispositivoDao(myActivity);
+                
+                // Busca os dados cadastros do dispositivo
+                disp = daoDisp.getDispositivo();
             	
                 /********** get Gps location service LocationManager object ***********/
                 locationManager = (LocationManager) this.myActivity.getSystemService(Context.LOCATION_SERVICE);
@@ -32,10 +43,13 @@ import android.widget.Toast;
                   //   Fourth(listener)   :  a {#link LocationListener} whose onLocationChanged(Location)
                   //                         method will be called for each location update
                 
-                 
+                
+                // Pega o intervalo definido no cadastro do dispositivo
+                Integer intervalo = (disp.getIntervalo() * 60) * 1000;
+                
                 locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER,
-                        3000,   // 3 sec
-                        3, this);
+                        intervalo,   // Intervalo de tempo que captura a posição
+                        0, this);
                  
                 /********* After registration onLocationChanged method  ********/
                 /********* called periodically after each 3 sec ***********/
@@ -55,7 +69,7 @@ import android.widget.Toast;
                  
                 /******** Called when User off Gps *********/
                  
-                Toast.makeText(this.myActivity.getBaseContext(), "Gps alterado off ", Toast.LENGTH_LONG).show();
+                Toast.makeText(this.myActivity.getBaseContext(), " GPS DESLIGADO ", Toast.LENGTH_LONG).show();
             }
          
             @Override
@@ -63,7 +77,7 @@ import android.widget.Toast;
                  
                 /******** Called when User on Gps  *********/
                  
-                Toast.makeText(this.myActivity.getBaseContext(), "Gps alterado on ", Toast.LENGTH_LONG).show();
+                Toast.makeText(this.myActivity.getBaseContext(), "GPS LIGADO ", Toast.LENGTH_LONG).show();
             }
          
             @Override
@@ -73,16 +87,3 @@ import android.widget.Toast;
             }
 
    }
-    
-    
-    /*
-    public class MainActivity extends Activity {
-
-    	@Override
-    	protected void onCreate(Bundle savedInstanceState) {
-    		super.onCreate(savedInstanceState);
-    		setContentView(R.layout.activity_main);
-    		
-    		new ServiceCapture(this);
-    	}
-    */
