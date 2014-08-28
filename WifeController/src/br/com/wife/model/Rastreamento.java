@@ -1,5 +1,8 @@
 package br.com.wife.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Rastreamento {
 	
 	private Integer id;
@@ -44,6 +47,23 @@ public class Rastreamento {
 	}
 	public void setHora(String hora) {
 		this.hora = hora;
+	}
+	
+	public JSONObject getJSONObject() {
+		JSONObject objJSON = new JSONObject();
+		
+		try {
+			objJSON.accumulate("NmDispositivo", this.getDispositivo().getNmDispositivo());
+			objJSON.accumulate("data", this.getData());
+			objJSON.accumulate("hora", this.getData());
+			objJSON.accumulate("gpsLat", this.getData());
+			objJSON.accumulate("gpsLong", this.getData());
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return objJSON;
 	}
 
 }
