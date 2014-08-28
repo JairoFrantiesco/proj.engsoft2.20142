@@ -17,6 +17,8 @@ import android.widget.Toast;
             private LocationManager locationManager;
             private Activity myActivity;
             
+            private int tentativasNET = 0;
+            
             Dispositivo disp;
             DispositivoDao daoDisp;
              
@@ -31,53 +33,62 @@ import android.widget.Toast;
                 /********** get Gps location service LocationManager object ***********/
                 locationManager = (LocationManager) this.myActivity.getSystemService(Context.LOCATION_SERVICE);
                  
-                /* CAL METHOD requestLocationUpdates */
-                   
-                  // Parameters :
-                  //   First(provider)    :  the name of the provider with which to register
-                  //   Second(minTime)    :  the minimum time interval for notifications,
-                  //                         in milliseconds. This field is only used as a hint
-                  //                         to conserve power, and actual time between location
-                  //                         updates may be greater or lesser than this value.
-                  //   Third(minDistance) :  the minimum distance interval for notifications, in meters
-                  //   Fourth(listener)   :  a {#link LocationListener} whose onLocationChanged(Location)
-                  //                         method will be called for each location update
-                
-                
                 // Pega o intervalo definido no cadastro do dispositivo
                 Integer intervalo = (disp.getIntervalo() * 60) * 1000;
                 
+                // localização via GPS
                 locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER,
                         intervalo,   // Intervalo de tempo que captura a posição
                         0, this);
+                this.statusGPS = true;
+                this.tentativasNET = 0;
+                
+                // localização via wi-fi ou 3G
+                locationManager.requestLocationUpdates( LocationManager.NETWORK_PROVIDER,
+                		intervalo,   // Intervalo de tempo que captura a posição
+                		0, this);
                  
                 /********* After registration onLocationChanged method  ********/
-                /********* called periodically after each 3 sec ***********/
+                /********* called periodically after each "intervalo" minutes ***********/
             }
              
-            /************* Called after each 3 sec **********/
+            /************* Called after each "intervalo" minutes **********/
             @Override
             public void onLocationChanged(Location location) {
-                    
-                String str = "Latitude: "+location.getLatitude()+"Longitude: "+location.getLongitude();
-  
-                Toast.makeText(this.myActivity.getBaseContext(), str, Toast.LENGTH_LONG).show();
+            	// O código abaixo pega localização via GPS.
+            	// Porém pega localização via NET somente quando GPS desligado 
+            	//  ou se as 3 últimas tentativas foram NET (onde supostamente o GPS ta falhando).
+            	// Quando pegar GPS novamente, zera a contagem.
+            	
+            	if (location.getProvider().contentEquals(LocationManager.NETWORK_PROVIDER)) {
+            		if (this.tentativasNET < 3) {
+            			this.tentativasNET++;
+            		}
+            	} else {
+            		this.tentativasNET = 0;
+            	}
+            	
+            	if ((this.tentativasNET == 0) || (this.tentativasNET >= 3)) {
+            		String str = "Latitude: "+location.getLatitude()+"Longitude: "+location.getLongitude();
+            		Toast.makeText(this.myActivity.getBaseContext(), str, Toast.LENGTH_LONG).show();
+            	}
             }
          
             @Override
             public void onProviderDisabled(String provider) {
-                 
-                /******** Called when User off Gps *********/
-                 
-                Toast.makeText(this.myActivity.getBaseContext(), " GPS DESLIGADO ", Toast.LENGTH_LONG).show();
+                /******** Called when User off Gps or net *********/
+                if (provider.contentEquals(LocationManager.GPS_PROVIDER)) {
+                	this.tentativasNET = 3;
+                }
+            	
+                //Toast.makeText(this.myActivity.getBaseContext(), " GPS DESLIGADO ", Toast.LENGTH_LONG).show();
             }
          
             @Override
             public void onProviderEnabled(String provider) {
+                /******** Called when User on Gps or net *********/
                  
-                /******** Called when User on Gps  *********/
-                 
-                Toast.makeText(this.myActivity.getBaseContext(), "GPS LIGADO ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this.myActivity.getBaseContext(), "GPS LIGADO ", Toast.LENGTH_LONG).show();
             }
          
             @Override
