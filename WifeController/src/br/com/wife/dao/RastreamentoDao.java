@@ -3,11 +3,12 @@ package br.com.wife.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.wife.model.Dispositivo;
+import br.com.wife.model.Rastreamento;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import br.com.wife.model.Dispositivo;
-import br.com.wife.model.Rastreamento;
+import android.database.sqlite.SQLiteDatabase;
 
 public class RastreamentoDao extends DaoGenerico {
 
@@ -105,6 +106,8 @@ public class RastreamentoDao extends DaoGenerico {
 		if (c.moveToFirst()) {
 
 			do {
+				Rastreamento rast = new Rastreamento();
+
 				String data = (c.getString(c.getColumnIndex("DATA")));
 				
 				if(!datas.contains(data)){
@@ -133,6 +136,8 @@ public class RastreamentoDao extends DaoGenerico {
 		if (c.moveToFirst()) {
 
 			do {
+				Rastreamento rast = new Rastreamento();
+
 				String lat = (c.getString(c.getColumnIndex("GPSLAT")));
 				String lon = (c.getString(c.getColumnIndex("GPSLONG")));
 				

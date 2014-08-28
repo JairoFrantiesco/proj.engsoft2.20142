@@ -2,10 +2,16 @@ package br.com.wife.util;
 
 import br.com.wife.dao.DaoGenerico;
 import br.com.wife.dao.DispositivoDao;
+import br.com.wife.dao.RastreamentoDao;
+import br.com.wife.model.Dispositivo;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 public class MontaEstruturaBanco extends DaoGenerico {
 
+	private Context context;
+	
 	// Tabela com os dados de rastreamento
     private static final String RASTREAMENTO = 
     		"CREATE TABLE IF NOT EXISTS RASTREAMENTO ( " +
@@ -28,6 +34,8 @@ public class MontaEstruturaBanco extends DaoGenerico {
   public MontaEstruturaBanco(Context context) {
  		super(context);
 
+ 		this.context = context;
+ 		
  		Log.i("BASE DE DADOS", "CRIANDO ESTRUTURA");
 		
 		dbOpen();
