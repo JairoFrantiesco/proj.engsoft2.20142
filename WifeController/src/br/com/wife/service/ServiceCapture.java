@@ -40,7 +40,7 @@ import android.widget.Toast;
                 locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER,
                         intervalo,   // Intervalo de tempo que captura a posição
                         0, this);
-                this.statusGPS = true;
+               // this.statusGPS = true;
                 this.tentativasNET = 0;
                 
                 // localização via wi-fi ou 3G
