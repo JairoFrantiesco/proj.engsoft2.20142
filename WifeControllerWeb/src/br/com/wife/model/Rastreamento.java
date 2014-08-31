@@ -1,5 +1,8 @@
 package br.com.wife.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Rastreamento {
 	
 	private Integer id;
@@ -47,6 +50,10 @@ public class Rastreamento {
 	} 
 	
 	
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "GPSlat: "+this.getGpsLat();
+	}
 
 }

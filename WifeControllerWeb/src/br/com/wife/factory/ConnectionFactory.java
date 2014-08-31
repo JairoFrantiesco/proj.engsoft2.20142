@@ -8,30 +8,13 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
 
-	// Caminho do banco de dados.
-	private static final String DRIVER = "org.sqlite.JDBC";
-	//private static final String URL = "jdbc:sqlite:wife.db";
-	
-	// Caminho absoluto
-	private static final String URL = "jdbc:sqlite:C:\\Users\\Diego\\git\\restful\\Restful\\wife.db";
-
-	// Tabela com os dados de rastreamento
-    private static final String RASTREAMENTO = 
-    		"CREATE TABLE IF NOT EXISTS RASTREAMENTO ( " +
-            " ID integer PRIMARY KEY, " +
-            " FKIMEI integer, " + 	// FK da tabela de dispositivo. Código IMEI do dispositivo
-            " DATA varchar(10), " +
-            " HORA varchar(5), " +
-            " GPSLAT varchar(25), " +			// Dados de latitude
-            " GPSLONG varchar(25) " +			// Dados de longitude
-            " );";	
+	private static String DRIVER = "com.mysql.jdbc.Driver";  
+    private static String URL = "jdbc:mysql://107.170.76.43/wife";  
     
-    // Tabela com os dados do dispositivo
-    private static final String DISPOSITIVO = 
-    		"CREATE TABLE IF NOT EXISTS DISPOSITIVO ( " +
-            " IDIMEI integer PRIMARY KEY, " +	// Código do IMEI no telefone
-            " NOME varchar(30) " +
-            " );";
+   // private static String URL = "jdbc:mysql://localhost/wife"; 
+    
+    private static String USER = "wife";  
+    private static String PASSWD = "qw12as12zx"; 
 
 	public Connection criarConexao(){
 		
@@ -40,7 +23,7 @@ public class ConnectionFactory {
 		try {
 			
 			Class.forName(DRIVER);
-			conexao = DriverManager.getConnection(URL);
+			conexao = DriverManager.getConnection(URL, USER, PASSWD);
 			
 			System.out.println("Conexão criada com sucesso!");
 			
@@ -71,31 +54,6 @@ public class ConnectionFactory {
 		} catch (Exception e) {
 			System.out.println("Erro ao fechar conexão com o banco: " + URL);
 		}
-	}
-
-	public void criarTabelas(){
-		
-		Connection con = criarConexao();
-		PreparedStatement pstmt = null;
-		try {
-			pstmt = con.prepareStatement(DISPOSITIVO);
-			pstmt.execute();
-			
-			pstmt = con.prepareStatement(RASTREAMENTO);
-			pstmt.execute();
-			
-			pstmt = con.prepareStatement("INSERT INTO DISPOSITIVO(NOME) VALUES('DIEGO CELULAR')");
-			pstmt.execute();
-			
-			System.out.println("TABELAS CRIADAS");
-			
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 	}
 
 }
