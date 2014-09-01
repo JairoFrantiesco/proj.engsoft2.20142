@@ -2,7 +2,8 @@ package br.com.wife.model;
 
 public class Dispositivo {
 
-	private Integer idImei;	// Código IMEI do aparelho. Código único de cada dispositivo
+	private Integer id;
+	private String imei;	// Código IMEI do aparelho. Código único de cada dispositivo
 	private String nmDispositivo;
 	
 	
@@ -12,11 +13,17 @@ public class Dispositivo {
 	public void setNmDispositivo(String nmDispositivo) {
 		this.nmDispositivo = nmDispositivo;
 	}
-	public Integer getCodImei() {
-		return idImei;
+	public Integer getId() {
+		return id;
 	}
-	public void setCodImei(Integer codImei) {
-		this.idImei = codImei;
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getImei() {
+		return imei;
+	}
+	public void setImei(String imei) {
+		this.imei = imei;
 	}
 
 }

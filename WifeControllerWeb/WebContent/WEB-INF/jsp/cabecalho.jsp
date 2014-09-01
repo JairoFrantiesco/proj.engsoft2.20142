@@ -9,7 +9,7 @@
 <body>
 	<table width="100%">
 		<tr>
-			<td align="center"><h2>Trabalho de G2 - LPOO2</h2></td>
+			<td align="center"><h2>WifeController - Controlador de Esposa</h2></td>
 		</tr>
 	</table>	
 </body>

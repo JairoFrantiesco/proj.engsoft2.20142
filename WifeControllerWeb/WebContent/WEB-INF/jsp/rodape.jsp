@@ -10,7 +10,7 @@
 	<hr />
 	<table width="100%">
 		<tr>
-			<td align="center">Copyright 2012 - Todos os direitos reservados</td>
+			<td align="center">Copyright 2014 - Todos os direitos reservados</td>
 		</tr>
 	</table>	
 </body>

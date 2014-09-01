@@ -9,9 +9,9 @@ import java.sql.SQLException;
 public class ConnectionFactory {
 
 	private static String DRIVER = "com.mysql.jdbc.Driver";  
-    private static String URL = "jdbc:mysql://107.170.76.43/wife";  
+   // private static String URL = "jdbc:mysql://107.170.76.43/wife";  
     
-   // private static String URL = "jdbc:mysql://localhost/wife"; 
+    private static String URL = "jdbc:mysql://localhost/wife"; 
     
     private static String USER = "wife";  
     private static String PASSWD = "qw12as12zx"; 

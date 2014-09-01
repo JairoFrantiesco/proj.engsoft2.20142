@@ -5,28 +5,22 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title></title>
-	<link href="/TrabalhoG2/css/site.css" rel="stylesheet" type="text/css" />
+	<link href="/WifeControllerWeb/css/site.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<table width="100%" class="menu">
 		<tr>
 			<td width="5%">
-				<a href="/TrabalhoG2/index.jsp">Home</a>
+				<a href="/WifeControllerWeb/">Home</a>
 			</td>
 			<td width="5%">
-				<a href="/TrabalhoG2/listaestoque.jsp">Estoque</a>
-			</td>
-			<td width="2%">
-				<a href="/TrabalhoG2/listaloja.jsp">Loja</a>
+				<a href="/WifeControllerWeb/dispositivo/listar">Dispositivo</a>
 			</td>
 			<td width="5%">
-				<a href="/TrabalhoG2/listaproduto.jsp">Produto</a>
+				<a href="/WifeControllerWeb/rastreamento/maps">Rastreamento</a>
 			</td>
-			<td width="5%">
-				<a href="/TrabalhoG2/importaarquivo.jsp">Arquivo</a>
-			</td>
-			<td width="80%">
-				<a href="/TrabalhoG2/bancodados.jsp">Banco de dados</a>
+			<td width="50%">
+				<a href="/WifeControllerWeb/rastreamento/listar">Lista Json</a>
 			</td>
 		</tr>
 	</table>

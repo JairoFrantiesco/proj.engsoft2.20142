@@ -7,30 +7,62 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import br.com.wife.factory.ConnectionFactory;
 import br.com.wife.model.Dispositivo;
+import br.com.wife.model.Rastreamento;
 
 public class DispositivoDao implements IGenericDao<Dispositivo> {
 	
-	private Connection connection;
+	Connection conexao;
+	ConnectionFactory conFactory;
 	
-	private static String INSERT = "INSERT INTO DISPOSITIVO(IDIMEI, NOME) VALUES (?,?)";
-	private static String DELETE = "DELETE FROM DISPOSITIVO WHERE IDIMEI = ?";
-	private static String UPDATE = "UPDATE FROM DISPOSITIVO SET NOME = ? WHERE IDIMEI = ?";
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	private static String INSERT = "INSERT INTO DISPOSITIVO(IMEI, NOME) VALUES (?,?)";
+	private static String DELETE = "DELETE FROM DISPOSITIVO WHERE ID = ?";
+	private static String UPDATE = "UPDATE FROM DISPOSITIVO SET NOME = ? WHERE ID = ?";
 	private static String SELECT_ALL = "SELECT * FROM DISPOSITIVO";
-	private static String SELECT_ID = "SELECT * FROM DISPOSITIVO WHERE IDIMEI = ?";
+	private static String SELECT_ID = "SELECT * FROM DISPOSITIVO WHERE ID = ?";
 	
 	public DispositivoDao() {
 	
 			ConnectionFactory fac = new ConnectionFactory();
-			this.connection = fac.criarConexao();
+			this.conexao = fac.criarConexao();
     
 	}
 
 	@Override
 	public boolean saveOrUpdate(Dispositivo objeto) {
-		// TODO Auto-generated method stub
-		return false;
+		return save(objeto);
+	}
+
+	private boolean save(Dispositivo objeto) {
+		
+		try {
+			
+			pstmt = conexao.prepareStatement(INSERT);
+			
+			// Código imei de teste
+			pstmt.setString(1, objeto.getImei());
+			pstmt.setString(2, objeto.getNmDispositivo());
+			
+			pstmt.execute();
+
+
+			pstmt.close();   
+			
+			System.out.println("DADOS SALVOS");
+			
+			return true; // Conseguiu gravar
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return false;
+		}  
 	}
 
 	@Override
@@ -41,8 +73,30 @@ public class DispositivoDao implements IGenericDao<Dispositivo> {
 
 	@Override
 	public List<Dispositivo> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ArrayList<Dispositivo> lista = new ArrayList<Dispositivo>();
+		
+		try {
+			pstmt = conexao.prepareStatement(SELECT_ALL);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				Dispositivo disp = new Dispositivo();
+				
+				disp.setId(rs.getInt("ID"));
+				disp.setImei(rs.getString("IMEI"));
+				disp.setNmDispositivo(rs.getString("NOME"));
+
+				lista.add(disp);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Erro ao listar todos os clientes: " + e);
+			e.printStackTrace();
+		} 
+		
+		return lista;
+		
 	}
 
 	@Override

@@ -3,13 +3,17 @@ package br.com.wife.resource;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import com.sun.jersey.api.view.Viewable;
 
 import br.com.wife.controller.RastreamentoController;
 import br.com.wife.model.Rastreamento;
@@ -41,5 +45,13 @@ public class WifeResource {
 		
 		return Response.status(200).entity(output).build();
 	}
+	
+	@GET
+    @Path("/maps")
+    public Viewable index(@Context HttpServletRequest request) {
+      //  request.setAttribute("obj", new String("IT Works"));
+        System.out.println("/INDEX called");
+        return new Viewable("/rastreamentoMap.jsp", null);
+    }
 
 }

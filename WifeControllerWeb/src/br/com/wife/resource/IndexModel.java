@@ -18,6 +18,6 @@ public class IndexModel {
     public Viewable index(@Context HttpServletRequest request) {
       //  request.setAttribute("obj", new String("IT Works"));
         System.out.println("/INDEX called");
-        return new Viewable("index.jsp", null);
+        return new Viewable("/index.jsp", null);
     }
 }

@@ -1,0 +1,41 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	font-family: Verdana;
+	font-size: 10pt;
+}
+
+.menu {
+	margin-bottom: 20px;
+	background-color: #5c87b2;
+	font-weight: bold;
+	padding: 7px;
+}
+
+.menu tr td a {
+	color: white;
+	text-decoration: none;
+	border: 1px solid white;
+	padding: 5px;
+}
+
+.menu tr td a:hover {
+	border: 1px solid white;
+	background-color: white;
+	color: #5c87b2;
+}
+
+.tabela {
+	border: 1px solid #5c87b2;
+	margin: 10px;
+}
+
+.tabela thead tr td {
+	background-color: #5c87b2;
+	color: white;
+}
+
+.tabela tr td {
+	padding: 5px;
+	text-align: center;
+}
