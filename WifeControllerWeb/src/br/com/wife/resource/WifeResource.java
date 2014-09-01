@@ -15,7 +15,9 @@ import javax.ws.rs.core.Response;
 
 import com.sun.jersey.api.view.Viewable;
 
+import br.com.wife.controller.DispositivoController;
 import br.com.wife.controller.RastreamentoController;
+import br.com.wife.model.Dispositivo;
 import br.com.wife.model.Rastreamento;
 
 
@@ -49,9 +51,22 @@ public class WifeResource {
 	@GET
     @Path("/maps")
     public Viewable index(@Context HttpServletRequest request) {
-      //  request.setAttribute("obj", new String("IT Works"));
-        System.out.println("/INDEX called");
-        return new Viewable("/rastreamentoMap.jsp", null);
+      
+		
+		RastreamentoController rastControl = new RastreamentoController();
+    	
+    	List<Rastreamento> lista = rastControl.getAll();
+    	
+    	
+    	System.out.println("QUANT DISP: " + lista.size());
+    	
+    	for(int i=0; i < lista.size(); i++){
+    		System.out.println("Lat: " + lista.get(i).getGpsLat() + "Long: " + lista.get(i).getGpsLong());
+    	}
+    	
+        request.setAttribute("objLista", lista);
+        
+        return new Viewable("/rastreamentoMap.jsp", lista);
     }
 
 }
