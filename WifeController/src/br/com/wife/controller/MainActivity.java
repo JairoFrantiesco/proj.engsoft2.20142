@@ -1,20 +1,15 @@
 package br.com.wife.controller;
 
-import br.com.wife.dao.DispositivoDao;
-import br.com.wife.model.Dispositivo;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
 import br.com.wife.service.ServiceCapture;
 import br.com.wife.util.MontaEstruturaBanco;
 
-
-//import com.example.menu.Cadastro;
 import com.example.wifecontroller.R;
-
-import android.os.Bundle;
-import android.app.Activity;
-import android.util.Log;
-import android.content.Intent;
-import android.view.Menu;
-import android.view.View;
+//import com.example.menu.Cadastro;
 
 public class MainActivity extends Activity {
 
@@ -24,12 +19,11 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		//Ao iniciar o sistema cria as tabelas do banco caso ainda não exista.
-		MontaEstruturaBanco db = new MontaEstruturaBanco(this);
-		
+		new MontaEstruturaBanco(this);
 		
 		// TESTE PARA VERIRICAR SE OS DADOS FORAM INSERIDOS
-		DispositivoDao daoDisp = new DispositivoDao(this);
-		Dispositivo disp = daoDisp.getDispositivo();
+		//DispositivoDao daoDisp = new DispositivoDao(this);
+		//Dispositivo disp = daoDisp.getDispositivo();
 		
 		new ServiceCapture(this);
 
