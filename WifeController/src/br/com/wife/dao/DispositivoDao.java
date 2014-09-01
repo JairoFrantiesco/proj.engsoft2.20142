@@ -1,10 +1,9 @@
 package br.com.wife.dao;
 
-import br.com.wife.model.Dispositivo;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import br.com.wife.model.Dispositivo;
 
 public class DispositivoDao extends DaoGenerico {
 

@@ -1,15 +1,7 @@
 package br.com.wife.controller;
 
-import br.com.wife.dao.DispositivoDao;
-import br.com.wife.model.Dispositivo;
-
-
-import com.example.wifecontroller.R;
-
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -17,6 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import br.com.wife.dao.DispositivoDao;
+import br.com.wife.model.Dispositivo;
+
+import com.example.wifecontroller.R;
 
 public class CadastroActivity extends Activity{
 	
@@ -64,7 +60,7 @@ public class CadastroActivity extends Activity{
 		});
 		
 	    Spinner combo = (Spinner) findViewById(R.id.tempo);
-	    ArrayAdapter adp = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, MINUTOS);
+	    ArrayAdapter<Integer> adp = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, MINUTOS);
 	    adp.setDropDownViewResource(android.R.layout.simple_spinner_item);
 	    combo.setAdapter(adp);
 	    

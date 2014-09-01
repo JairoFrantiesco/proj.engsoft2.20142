@@ -50,6 +50,8 @@ public class Rastreamento {
 	}
 	
 	public JSONObject getJSONObject() {
+		// TODO Auto-generated method stub
+		
 		JSONObject objJSON = new JSONObject();
 		
 		try {

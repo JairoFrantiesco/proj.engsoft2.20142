@@ -3,15 +3,8 @@ package br.com.wife.controller;
 
 import java.util.List;
 
-
-import br.com.wife.dao.RastreamentoDao;
-
-
-import com.example.wifecontroller.R;
-
-import android.os.Bundle;
 import android.app.Activity;
-
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +13,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
+import br.com.wife.dao.RastreamentoDao;
+
+import com.example.wifecontroller.R;
 
 public class ListaActivity extends Activity {
 

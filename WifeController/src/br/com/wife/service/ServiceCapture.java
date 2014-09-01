@@ -1,15 +1,14 @@
 package br.com.wife.service;
 
-import br.com.wife.dao.DispositivoDao;
-import br.com.wife.model.Dispositivo;
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.Toast;
+import br.com.wife.dao.DispositivoDao;
+import br.com.wife.model.Dispositivo;
 
 /***********  Create class and implements with LocationListener **************/
     public class ServiceCapture implements LocationListener {
@@ -40,13 +39,12 @@ import android.widget.Toast;
                 locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER,
                         intervalo,   // Intervalo de tempo que captura a posição
                         0, this);
-               // this.statusGPS = true;
                 this.tentativasNET = 0;
                 
                 // localização via wi-fi ou 3G
-                locationManager.requestLocationUpdates( LocationManager.NETWORK_PROVIDER,
-                		intervalo,   // Intervalo de tempo que captura a posição
-                		0, this);
+//                locationManager.requestLocationUpdates( LocationManager.NETWORK_PROVIDER,
+//                		intervalo,   // Intervalo de tempo que captura a posição
+//                		0, this);
                  
                 /********* After registration onLocationChanged method  ********/
                 /********* called periodically after each "intervalo" minutes ***********/
@@ -69,7 +67,12 @@ import android.widget.Toast;
             	}
             	
             	if ((this.tentativasNET == 0) || (this.tentativasNET >= 3)) {
-            		String str = "Latitude: "+location.getLatitude()+"Longitude: "+location.getLongitude();
+            		String str = "LLatitude: "+location.getLatitude()+"Longitude: "+location.getLongitude();
+            		
+            		String url = "http://ntsrv.netche.net.br:8080/WifeControllerWeb/rastreamento/send";
+            		SincronizaDados ws = new SincronizaDados();
+            		str = ws.enviarDadosPost(url);
+            		
             		Toast.makeText(this.myActivity.getBaseContext(), str, Toast.LENGTH_LONG).show();
             	}
             }
@@ -95,6 +98,7 @@ import android.widget.Toast;
             public void onStatusChanged(String provider, int status, Bundle extras) {
                 // TODO Auto-generated method stub
                  
+            	//Toast.makeText(this.myActivity.getBaseContext(), "GPS LIGADO ", Toast.LENGTH_LONG).show();
             }
 
    }
