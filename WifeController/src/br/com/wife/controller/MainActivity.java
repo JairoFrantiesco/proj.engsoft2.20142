@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
 			
 		}else{
 			startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS));
-			finish();
+			finish(); //verificar se não para o serviço
 		}
 
 	}
