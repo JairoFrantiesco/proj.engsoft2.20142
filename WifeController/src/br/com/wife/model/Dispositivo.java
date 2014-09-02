@@ -4,6 +4,7 @@ public class Dispositivo {
 	
 	private Integer id;
 	private String nmDispositivo;
+	private String imei;
 	private Integer intervalo;
 	
 	public Integer getId() {
@@ -24,7 +25,11 @@ public class Dispositivo {
 	public void setIntervalo(Integer intervalo) {
 		this.intervalo = intervalo;
 	}
+	public void setImei(String imei){
+		this.imei = imei;
+	}
+	public String getImeiDispositivo() {
+		return imei;
+	}
 	
-	
-
 }
