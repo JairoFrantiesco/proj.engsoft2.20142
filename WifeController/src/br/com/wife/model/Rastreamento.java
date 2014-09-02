@@ -55,7 +55,7 @@ public class Rastreamento {
 		JSONObject objJSON = new JSONObject();
 		
 		try {
-			objJSON.accumulate("NmDispositivo", this.getDispositivo().getNmDispositivo());
+			objJSON.accumulate("id", this.getDispositivo().getImeiDispositivo());
 			objJSON.accumulate("data", this.getData());
 			objJSON.accumulate("hora", this.getData());
 			objJSON.accumulate("gpsLat", this.getData());
