@@ -23,7 +23,7 @@ public class DispositivoDao implements IGenericDao<Dispositivo> {
 	private static String INSERT = "INSERT INTO DISPOSITIVO(IMEI, NOME) VALUES (?,?)";
 	private static String DELETE = "DELETE FROM DISPOSITIVO WHERE ID = ?";
 	private static String UPDATE = "UPDATE FROM DISPOSITIVO SET NOME = ? WHERE ID = ?";
-	private static String SELECT_ALL = "SELECT * FROM DISPOSITIVO";
+	private static String SELECT_ALL = "SELECT * FROM DISPOSITIVO ORDER BY ID";
 	private static String SELECT_ID = "SELECT * FROM DISPOSITIVO WHERE ID = ?";
 	
 	public DispositivoDao() {
