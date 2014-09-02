@@ -24,6 +24,7 @@ public class MontaEstruturaBanco extends DaoGenerico {
     		"CREATE TABLE IF NOT EXISTS DISPOSITIVO ( " +
             " ID integer PRIMARY KEY, " +
             " NOME varchar(30), " +
+            " IMEI varchar(20), " +
             " INTERVALO integer " +
             " );";
 
@@ -35,7 +36,7 @@ public class MontaEstruturaBanco extends DaoGenerico {
  		Log.i("BASE DE DADOS", "CRIANDO ESTRUTURA");
 		
 		dbOpen();
-//		Log.d("VERS√O BASE ATUAL", Integer.toString(db.getVersion()));
+//		Log.d("VERS√ÉO BASE ATUAL", Integer.toString(db.getVersion()));
 		
 		// Cria as tabelas
 		db.execSQL(DISPOSITIVO);
@@ -43,12 +44,12 @@ public class MontaEstruturaBanco extends DaoGenerico {
 		
 		dbClose();
 
-		//Insere registro padr„o dos dados do dispositivo ao criar pela primeira vez a base.
+		//Insere registro padr√£o dos dados do dispositivo ao criar pela primeira vez a base.
 		DispositivoDao dao = new DispositivoDao(context);
 		
 		if(dao.quantRegistro() == 0){
 			dbOpen();
-			db.execSQL("INSERT INTO DISPOSITIVO(NOME, INTERVALO) VALUES('TESTE', 10)");
+			db.execSQL("INSERT INTO DISPOSITIVO(NOME, IMEI, INTERVALO) VALUES('TESTE', '000000000000000', 10)");
 			dbClose();
 		}
 
