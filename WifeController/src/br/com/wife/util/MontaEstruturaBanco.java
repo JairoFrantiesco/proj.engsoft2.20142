@@ -44,15 +44,16 @@ public class MontaEstruturaBanco extends DaoGenerico {
 		
 		dbClose();
 
+		
 		//Insere registro padrão dos dados do dispositivo ao criar pela primeira vez a base.
 		DispositivoDao dao = new DispositivoDao(context);
 		
 		if(dao.quantRegistro() == 0){
 			dbOpen();
-			db.execSQL("INSERT INTO DISPOSITIVO(NOME, IMEI, INTERVALO) VALUES('TESTE', '000000000000000', 10)");
+			db.execSQL("INSERT INTO DISPOSITIVO(NOME, IMEI, INTERVALO) VALUES('TESTE', '0', 10)");
 			dbClose();
 		}
-
+		 
 	}	
 
 }
