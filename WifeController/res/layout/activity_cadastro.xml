@@ -47,8 +47,27 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/tempo"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="74dp"
         android:text="@string/cadastrar" />
 
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="307dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tempo"
+        android:text="Anote este número para acesso via web:" />
+
+    <TextView
+        android:id="@+id/Imei"
+        android:layout_width="307dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/TextView01"
+        android:layout_marginTop="17dp"
+        android:layout_centerInParent="true"
+        android:textColor="#cc0000"
+        android:textSize="20sp"/>
     
 </RelativeLayout>
+
