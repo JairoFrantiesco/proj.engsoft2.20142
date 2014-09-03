@@ -1,0 +1,56 @@
+-- phpMyAdmin SQL Dump
+-- version 4.0.10.1
+-- http://www.phpmyadmin.net
+--
+-- Servidor: localhost
+-- Tempo de Geração: 03/09/2014 às 19:48
+-- Versão do servidor: 5.1.73
+-- Versão do PHP: 5.3.3
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Banco de dados: `wife`
+--
+CREATE DATABASE IF NOT EXISTS `wife` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+USE `wife`;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `DISPOSITIVO`
+--
+
+CREATE TABLE IF NOT EXISTS `DISPOSITIVO` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `IMEI` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `NOME` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `RASTREAMENTO`
+--
+
+CREATE TABLE IF NOT EXISTS `RASTREAMENTO` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `FKIMEI` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `DATA` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `HORA` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `GPSLAT` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `GPSLONG` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=945 ;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
