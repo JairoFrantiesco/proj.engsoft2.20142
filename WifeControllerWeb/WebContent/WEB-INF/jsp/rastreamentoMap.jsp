@@ -21,29 +21,39 @@
 	  
 	  <c:forEach var="s" items="${objLista}">
 	  
-	  	setmarker(map, "${s.gpsLat}", "${s.gpsLong}"); 
-	  
+	  	setmarker(map, "${s.gpsLat}", "${s.gpsLong}", "${s.dispositivo.nmDispositivo}", "${s.dispositivo.imei}"); 
 	  </c:forEach> 
-	  
-	  
-	  
-	  
-	  
+ 
 	}
 	
-	function setmarker(map, lat, lng){   
+	function setmarker(map, lat, lng, dispositivo, imei){   
           
         var marker = new google.maps.Marker({  
-              
+   
             position: new google.maps.LatLng(lat, lng),  
             map: map,  
-            title: "endereço",  
-            clickable: true 
+            title: dispositivo,  
+            clickable: true,
+            animation: google.maps.Animation.DROP
               
         });  
+        
+        var infowindow = new google.maps.InfoWindow(), marker;
+        
+        var contentString = '<h2>' +dispositivo+ '</h2>' 
+        	+ '<p>Imei: ' +imei+ '</p>'; 
+        	
+   	 
+    	google.maps.event.addListener(marker, 'click', (function(marker, i) {
+    	    return function() {
+    	        infowindow.setContent(contentString);
+    	        infowindow.open(map, marker);
+    	    }
+    	})(marker));
           
     }  
-
+	
+	
 
 	google.maps.event.addDomListener(window, 'load', initialize);
 </script>
@@ -51,6 +61,25 @@
 <body>
 	<c:import url="cabecalho.jsp" />
 	<c:import url="menu.jsp" />
+
+	<table align="center">
+			<tr>
+				<td>Selecione o Dispositivo:</td>
+				<td>
+				<select>
+
+					<c:forEach var="s" items="${lstDisp}">
+					
+					<option value="${s.imei}">${s.nmDispositivo}</option>
+	  
+	  				</c:forEach>
+	
+				</select>
+				</td>
+			</tr>
+			<tr></tr>
+	</table>
+
 
  <div id="map-canvas" style="height:450px; width:800px; left:20%;"></div>
  

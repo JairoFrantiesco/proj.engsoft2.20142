@@ -54,17 +54,26 @@ public class WifeResource {
       
 		
 		RastreamentoController rastControl = new RastreamentoController();
+		DispositivoController dispControl = new DispositivoController();
     	
     	List<Rastreamento> lista = rastControl.getAll();
     	
+    	List<Dispositivo> lstDisp = dispControl.getAll();
     	
-    	System.out.println("QUANT DISP: " + lista.size());
+    	System.out.println("QUANT RASTREAMENTO: " + lista.size());
+    	System.out.println("QUANT DISPOSITIVO: " + lstDisp.size());
+    	
+    	for(int i=0; i < lstDisp.size(); i++){
+    		System.out.println("Dispositivo: " + lstDisp.get(i).getNmDispositivo() + " - Imei: " + lstDisp.get(i).getImei());
+    	}
     	
     	for(int i=0; i < lista.size(); i++){
     		System.out.println("Lat: " + lista.get(i).getGpsLat() + "Long: " + lista.get(i).getGpsLong());
+    		System.out.println("Dispositivo: " + lista.get(i).getDispositivo().getNmDispositivo());
     	}
     	
         request.setAttribute("objLista", lista);
+        request.setAttribute("lstDisp", lstDisp);
         
         return new Viewable("/rastreamentoMap.jsp", lista);
     }

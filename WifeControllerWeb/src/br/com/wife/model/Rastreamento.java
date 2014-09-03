@@ -7,6 +7,15 @@ public class Rastreamento {
 	
 	private Integer id;
 	private Dispositivo dispositivo; // FK NA TABELA = FKIMEI
+	private String imei;
+	public String getImei() {
+		return imei;
+	}
+	public void setImei(String imei) {
+		this.imei = imei;
+	}
+
+
 	private String data;
 	private String hora;
 	private String gpsLat;

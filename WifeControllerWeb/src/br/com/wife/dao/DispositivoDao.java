@@ -24,7 +24,7 @@ public class DispositivoDao implements IGenericDao<Dispositivo> {
 	private static String DELETE = "DELETE FROM DISPOSITIVO WHERE ID = ?";
 	private static String UPDATE = "UPDATE FROM DISPOSITIVO SET NOME = ? WHERE ID = ?";
 	private static String SELECT_ALL = "SELECT * FROM DISPOSITIVO ORDER BY ID";
-	private static String SELECT_ID = "SELECT * FROM DISPOSITIVO WHERE ID = ?";
+	private static String SELECT_ID = "SELECT * FROM DISPOSITIVO WHERE IMEI = ?";
 	
 	public DispositivoDao() {
 	
@@ -103,6 +103,29 @@ public class DispositivoDao implements IGenericDao<Dispositivo> {
 	public Dispositivo getById(int pkCodigo) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public Dispositivo getByImei(String imei){
+		
+		Dispositivo disp = new Dispositivo();
+		
+		try {
+			pstmt = conexao.prepareStatement(SELECT_ID);
+			pstmt.setString(1, imei);
+			rs = pstmt.executeQuery();
+			rs.next();
+	
+			disp.setId(rs.getInt("ID"));
+			disp.setImei(rs.getString("IMEI"));
+			disp.setNmDispositivo(rs.getString("NOME"));
+
+			
+		} catch (Exception e) {
+			System.out.println("Erro ao listar todos os clientes: " + e);
+			e.printStackTrace();
+		} 
+		
+		return disp;
 	}
 
 	
