@@ -1,8 +1,12 @@
 package br.com.wife.controller;
 
-import android.app.Activity;
+import br.com.wife.dao.DispositivoDao;
+import br.com.wife.model.Dispositivo;
 
-import android.content.Context;
+
+import com.example.wifecontroller.R;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -13,24 +17,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-import br.com.wife.dao.DispositivoDao;
-import br.com.wife.model.Dispositivo;
-
-import com.example.wifecontroller.R;
-
 
 public class CadastroActivity extends Activity{
 	
 	
-	public static final Integer[] MINUTOS = new Integer[]{10,20,30,40,50,60}; 
+	public static final Integer[] MINUTOS = new Integer[]{1,5,10,30,60}; 
 	
 	public EditText edNome;
 	public Spinner tempo;
 	public Button btCadastra;
-	public String imei;
-
+	String imei;
+	
 	Dispositivo disp;
 	DispositivoDao daoDisp = new DispositivoDao(this);
 	
@@ -39,42 +37,31 @@ public class CadastroActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cadastro);
 		
+		TelephonyManager tm = (TelephonyManager) getSystemService(this.TELEPHONY_SERVICE);
+    	// get IMEI
+    	imei = tm.getDeviceId();
+		
 		disp = daoDisp.getDispositivo();
 	
 		edNome = (EditText) findViewById(R.id.edNome);
 		tempo = (Spinner) findViewById(R.id.tempo);
 		btCadastra = (Button) findViewById(R.id.btCadastra);
 		
-		edNome.setText(disp.getNmDispositivo().toString());
-		
-		//Pega o IMEI do dispositivo
-		TelephonyManager mTelephonyMgr;
-		mTelephonyMgr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-		 
-		//Atribui o imei na variavel
-		imei = mTelephonyMgr.getDeviceId();
-		
-		//Salva o imei
-		disp.setImei(imei);
-		 
-		//Printa na tela
-		TextView tv = (TextView) findViewById(R.id.Imei);
-		tv.setText("IMEI: " + imei);
-				 
+		edNome.setText(imei);
 
-		//DefiniÃ§Ã£o do evento do clique do botão cadastrar
+		//Definição do evento do clique do botao cadastrar
 		btCadastra.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View view) {
 				
-				//Salva as informaÃ§Ãµes de cadastro
+				//Salva as informações de cadastro
 				disp.setId(1);
-				disp.setNmDispositivo(edNome.getText().toString());
+				disp.setNmDispositivo(imei);
 				disp.setIntervalo((Integer) tempo.getSelectedItem());
 				
 				daoDisp.atualizar(disp);
 				
-				//Exibe uma mensagem de sucesso :p
+				//Exibe uma mensagem de sucesso
 				Toast.makeText(getApplicationContext(), "Dados atualizados com sucesso!", Toast.LENGTH_LONG).show();
 				
 				finish();
@@ -83,9 +70,17 @@ public class CadastroActivity extends Activity{
 		});
 		
 	    Spinner combo = (Spinner) findViewById(R.id.tempo);
-	    ArrayAdapter<Integer> adp = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, MINUTOS);
+	    ArrayAdapter adp = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, MINUTOS);
 	    adp.setDropDownViewResource(android.R.layout.simple_spinner_item);
 	    combo.setAdapter(adp);
+	    
+	    if(disp.getIntervalo() != null)
+		    for (int i = 0; i < combo.getCount(); i++) {
+		    	int f = (Integer) combo.getItemAtPosition(i);
+				if (f == disp.getIntervalo()) {
+					combo.setSelection(i);
+				}
+			}
 	    
 	}
 

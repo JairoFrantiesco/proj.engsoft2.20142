@@ -3,11 +3,12 @@ package br.com.wife.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.wife.model.Dispositivo;
+import br.com.wife.model.Rastreamento;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import br.com.wife.model.Dispositivo;
-import br.com.wife.model.Rastreamento;
+import android.database.sqlite.SQLiteDatabase;
 
 public class RastreamentoDao extends DaoGenerico {
 
@@ -31,7 +32,8 @@ public class RastreamentoDao extends DaoGenerico {
 			
 		ContentValues values = new ContentValues();
 
-			values.put("FKDISPOSITIVO", dados.getDispositivo().getId());
+			//values.put("FKDISPOSITIVO", dados.getDispositivo().getId());
+			values.put("IMEI", dados.getImei());
 			values.put("DATA", dados.getData());
 			values.put("HORA", dados.getHora());
 			values.put("GPSLAT", dados.getGpsLat());
@@ -76,7 +78,8 @@ public class RastreamentoDao extends DaoGenerico {
 					Rastreamento rast = new Rastreamento();
 					
 					rast.setId(c.getInt(c.getColumnIndex("ID")));
-					rast.setDispositivo(disp);
+					//rast.setDispositivo(disp);
+					rast.setImei(c.getString(c.getColumnIndex("IMEI")));
 					rast.setData(c.getString(c.getColumnIndex("DATA")));
 					rast.setHora(c.getString(c.getColumnIndex("HORA")));
 					rast.setGpsLat(c.getString(c.getColumnIndex("GPSLAT")));
@@ -105,7 +108,7 @@ public class RastreamentoDao extends DaoGenerico {
 		if (c.moveToFirst()) {
 
 			do {
-				//Rastreamento rast = new Rastreamento();
+				Rastreamento rast = new Rastreamento();
 
 				String data = (c.getString(c.getColumnIndex("DATA")));
 				
@@ -135,7 +138,7 @@ public class RastreamentoDao extends DaoGenerico {
 		if (c.moveToFirst()) {
 
 			do {
-				//Rastreamento rast = new Rastreamento();
+				Rastreamento rast = new Rastreamento();
 
 				String lat = (c.getString(c.getColumnIndex("GPSLAT")));
 				String lon = (c.getString(c.getColumnIndex("GPSLONG")));

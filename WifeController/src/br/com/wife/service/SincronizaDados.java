@@ -30,10 +30,8 @@ public class SincronizaDados extends Service {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	public String enviarDadosPost(String url) {
-		// TODO Auto-generated method stub
 	
+	public String enviarDadosPost(String url) {
         InputStream inputStream = null;
         String result = "";
         

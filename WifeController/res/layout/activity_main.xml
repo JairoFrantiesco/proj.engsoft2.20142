@@ -28,4 +28,14 @@
         android:text="Listar Posições" 
         android:onClick="listaPosicoes"/>
 
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignRight="@+id/button2"
+        android:layout_below="@+id/button2"
+        android:text="Envia Dados" 
+        android:onClick="enviaDados"/>
+
 </RelativeLayout>

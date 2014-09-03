@@ -7,10 +7,10 @@
     <!-- PERMISSÕES -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+	
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="18" />
@@ -35,6 +35,16 @@
         
         <!-- Cadastro do dispositivo -->
         <activity android:name="br.com.wife.controller.CadastroActivity" android:screenOrientation="portrait" />
+        
+        <!-- Serviço Captura -->
+        <service android:label="ServiceCapture" android:name="br.com.wife.service.ServiceCapture" android:exported="false" >
+            <intent-filter >
+                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="SERVICE_CAPTURE"/>
+                
+            </intent-filter>
+            
+        </service>
         
     </application>
 

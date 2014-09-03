@@ -3,10 +3,16 @@ package br.com.wife.model;
 public class Dispositivo {
 	
 	private Integer id;
-	private String nmDispositivo;
 	private String imei;
+	private String nmDispositivo;
 	private Integer intervalo;
 	
+	public String getImei() {
+		return imei;
+	}
+	public void setImei(String imei) {
+		this.imei = imei;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -25,11 +31,7 @@ public class Dispositivo {
 	public void setIntervalo(Integer intervalo) {
 		this.intervalo = intervalo;
 	}
-	public void setImei(String imei){
-		this.imei = imei;
-	}
-	public String getImeiDispositivo() {
-		return imei;
-	}
 	
+	
+
 }

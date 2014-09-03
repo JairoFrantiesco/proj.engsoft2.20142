@@ -7,11 +7,18 @@ public class Rastreamento {
 	
 	private Integer id;
 	private Dispositivo dispositivo;
+	private String imei;
 	private String data;
 	private String hora;
 	private String gpsLat;
 	private String gpsLong; 
 	
+	public String getImei() {
+		return imei;
+	}
+	public void setImei(String imei) {
+		this.imei = imei;
+	}
 	public String getGpsLat() {
 		return gpsLat;
 	}
@@ -50,12 +57,10 @@ public class Rastreamento {
 	}
 	
 	public JSONObject getJSONObject() {
-		// TODO Auto-generated method stub
-		
 		JSONObject objJSON = new JSONObject();
 		
 		try {
-			objJSON.accumulate("id", this.getDispositivo().getImeiDispositivo());
+			objJSON.accumulate("NmDispositivo", this.getDispositivo().getNmDispositivo());
 			objJSON.accumulate("data", this.getData());
 			objJSON.accumulate("hora", this.getData());
 			objJSON.accumulate("gpsLat", this.getData());

@@ -1,9 +1,10 @@
 package br.com.wife.dao;
 
+import br.com.wife.model.Dispositivo;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import br.com.wife.model.Dispositivo;
+import android.database.sqlite.SQLiteDatabase;
 
 public class DispositivoDao extends DaoGenerico {
 
@@ -21,7 +22,6 @@ public class DispositivoDao extends DaoGenerico {
 		ContentValues values = new ContentValues();
 			
 		values.put("NOME", disp.getNmDispositivo());
-		values.put("IMEI", disp.getImeiDispositivo());
 		values.put("INTERVALO", disp.getIntervalo());
 					
 		String id = String.valueOf(disp.getId());
@@ -66,7 +66,6 @@ public class DispositivoDao extends DaoGenerico {
 			c.moveToFirst();
 			disp.setId(c.getInt(c.getColumnIndex("ID")));
 			disp.setNmDispositivo(c.getString(c.getColumnIndex("NOME")));
-			disp.setImei(c.getString(c.getColumnIndex("IMEI")));
 			disp.setIntervalo(c.getInt(c.getColumnIndex("INTERVALO")));
 				
 			c.close();
@@ -81,4 +80,3 @@ public class DispositivoDao extends DaoGenerico {
 	}
 
 }
-
