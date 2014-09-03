@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import br.com.wife.dao.DispositivoDao;
+import br.com.wife.model.Dispositivo;
 import br.com.wife.service.ServiceCapture;
 import br.com.wife.util.MontaEstruturaBanco;
 
@@ -16,16 +18,24 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
 		
-		//Ao iniciar o sistema cria as tabelas do banco caso ainda não exista.
+		// Ao iniciar o sistema cria as tabelas do banco caso ainda não exista.
+	
 		new MontaEstruturaBanco(this);
 		
-		// TESTE PARA VERIRICAR SE OS DADOS FORAM INSERIDOS
-		//DispositivoDao daoDisp = new DispositivoDao(this);
-		//Dispositivo disp = daoDisp.getDispositivo();
+		DispositivoDao dao = new DispositivoDao(this);
+		Dispositivo disp = dao.getDispositivo();
 		
-		new ServiceCapture(this);
+		if (disp.getImeiDispositivo().equals("0")) {
+			
+			setContentView(R.layout.activity_main);
+			
+			new ServiceCapture(this); //Comentar para testar <---
+			
+		}else{
+			startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS));
+			finish(); //verificar se não para o serviço
+		}
 
 	}
 	

@@ -1,5 +1,16 @@
 package br.com.wife.service;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.http.client.ClientProtocolException;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
@@ -8,7 +19,9 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.Toast;
 import br.com.wife.dao.DispositivoDao;
+import br.com.wife.dao.RastreamentoDao;
 import br.com.wife.model.Dispositivo;
+import br.com.wife.model.Rastreamento;
 
 /***********  Create class and implements with LocationListener **************/
     public class ServiceCapture implements LocationListener {
@@ -20,6 +33,9 @@ import br.com.wife.model.Dispositivo;
             
             Dispositivo disp;
             DispositivoDao daoDisp;
+            
+            Rastreamento rast;
+            RastreamentoDao daoRast;
              
             public ServiceCapture(Activity myActivity) {
                 this.myActivity = myActivity;
@@ -49,6 +65,33 @@ import br.com.wife.model.Dispositivo;
                 /********* After registration onLocationChanged method  ********/
                 /********* called periodically after each "intervalo" minutes ***********/
             }
+            
+            private void enviaJson(final Context cont) {
+                new Thread() {
+                    @Override
+                    public void run() {
+	                    super.run();
+	                    RastreamentoDao coordDB = new RastreamentoDao(cont);
+	                    List<Rastreamento> coordenadas = coordDB.listAllRastreamento();
+	                    JSONArray arrJSON = new JSONArray();
+	                    for (Rastreamento coordenada : coordenadas) {
+	                    	arrJSON.put(coordenada.getJSONObject());
+	                    }
+	                    JSONObject objJSON = new JSONObject();
+	                    try {                       
+	                         String url = "http://ntsrv.netche.net.br:8080/WifeControllerWeb/rastreamento/send";//EXEMPLO
+	                         objJSON.accumulate("rastreamento", arrJSON.toString());
+	                         ConexaoHttpJson.enviarSolicitacao(url, objJSON);                           
+                         } catch (ClientProtocolException e) {
+                             e.printStackTrace();
+                         } catch (IOException e) {
+                             e.printStackTrace();
+                         } catch (JSONException e) {
+                             e.printStackTrace();
+                         }
+                    }
+                }.start();   
+            }
              
             /************* Called after each "intervalo" minutes **********/
             @Override
@@ -69,9 +112,25 @@ import br.com.wife.model.Dispositivo;
             	if ((this.tentativasNET == 0) || (this.tentativasNET >= 3)) {
             		String str = "LLatitude: "+location.getLatitude()+"Longitude: "+location.getLongitude();
             		
-            		String url = "http://ntsrv.netche.net.br:8080/WifeControllerWeb/rastreamento/send";
-            		SincronizaDados ws = new SincronizaDados();
-            		str = ws.enviarDadosPost(url);
+                    rast = new Rastreamento();
+                    rast.setDispositivo(disp);
+                    rast.setGpsLat(Double.toString(location.getLatitude()));
+                    rast.setGpsLong(Double.toString(location.getLongitude()));
+    	
+    	            Calendar  cal = Calendar.getInstance();
+    	            cal.setTime(new Date());
+    	            Date data_atual = cal.getTime();
+    	            SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HH:mm:ss");
+    	            rast.setData(data_atual.toString());
+    	            rast.setHora(dateFormat_hora.format(data_atual));
+
+                    daoRast = new RastreamentoDao(myActivity);
+                    daoRast.inserir(rast);
+            		
+                    this.enviaJson(this.myActivity.getBaseContext());
+//            		String url = "http://ntsrv.netche.net.br:8080/WifeControllerWeb/rastreamento/send";
+//            		SincronizaDados ws = new SincronizaDados();
+//            		str = ws.enviarDadosPost(url);
             		
             		Toast.makeText(this.myActivity.getBaseContext(), str, Toast.LENGTH_LONG).show();
             	}
