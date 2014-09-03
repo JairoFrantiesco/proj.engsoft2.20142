@@ -18,15 +18,15 @@
 	  map = new google.maps.Map(document.getElementById('map-canvas'),
 	      mapOptions);
 	  
-	  
+	  var datahora = "";
 	  <c:forEach var="s" items="${objLista}">
-	  
-	  	setmarker(map, "${s.gpsLat}", "${s.gpsLong}", "${s.dispositivo.nmDispositivo}", "${s.dispositivo.imei}"); 
+	    datahora = "${s.dispositivo.data}" + " - " + "${s.dispositivo.hora}";
+	  	setmarker(map, "${s.gpsLat}", "${s.gpsLong}", "${s.dispositivo.nmDispositivo}", datahora); 
 	  </c:forEach> 
  
 	}
 	
-	function setmarker(map, lat, lng, dispositivo, imei){   
+	function setmarker(map, lat, lng, dispositivo, datahora){   
           
         var marker = new google.maps.Marker({  
    
@@ -41,7 +41,7 @@
         var infowindow = new google.maps.InfoWindow(), marker;
         
         var contentString = '<h2>' +dispositivo+ '</h2>' 
-        	+ '<p>Imei: ' +imei+ '</p>'; 
+        	+ '<p>Data-hora: ' +datahora+ '</p>'; 
         	
    	 
     	google.maps.event.addListener(marker, 'click', (function(marker, i) {
