@@ -20,7 +20,7 @@
 	  
 	  var datahora = "";
 	  <c:forEach var="s" items="${objLista}">
-	    datahora = "${s.dispositivo.data}" + " - " + "${s.dispositivo.hora}";
+	    datahora = "${s.data}" + " - " + "${s.hora}";
 	  	setmarker(map, "${s.gpsLat}", "${s.gpsLong}", "${s.dispositivo.nmDispositivo}", datahora); 
 	  </c:forEach> 
  
